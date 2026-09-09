@@ -1,0 +1,17 @@
+.admin-login { min-height: 100dvh; display: grid; place-items: center; padding: 24px; background: url('/sky.png') center/cover no-repeat; }
+.admin-login-form { width: min(400px,100%); padding: 32px; display: flex; flex-direction: column; gap: 24px; border: 1px solid var(--color-separator-border); border-radius: 16px; background: var(--color-background-primary-default); }
+.admin-login-form h1 { font-size: 24px; line-height: 32px; font-weight: 600; margin-bottom: 8px; }
+.login-password { display: flex; align-items: flex-end; gap: 8px; }
+.login-password > div { flex: 1; min-width: 0; }
+.secondary-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; font-size: 14px; }
+.secondary-toolbar > div { display: flex; gap: 12px; }
+.incident-table { min-width: 720px; }
+.incident-table details p { max-width: 300px; white-space: normal; padding-top: 8px; }
+.incident-table summary { cursor: pointer; }
+.incident-empty { padding: 64px 24px; text-align: center; }
+.admin-fault { max-width: 560px; display: flex; flex-direction: column; gap: 24px; }
+.fault-section h2 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+.fault-section p,.fault-detail { font-size: 14px; line-height: 24px; color: var(--color-text-secondary); }
+.fault-detail div { display: flex; justify-content: space-between; gap: 24px; padding: 12px 0; border-bottom: 1px solid var(--color-separator-border); }
+.fault-actions { display: flex; justify-content: flex-end; gap: 8px; }
+@media(max-width:700px) { .secondary-toolbar { align-items: stretch; flex-direction: column; } .secondary-toolbar > div { flex-wrap: wrap; } .admin-login-form { padding: 24px; } }

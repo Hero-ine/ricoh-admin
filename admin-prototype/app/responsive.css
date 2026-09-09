@@ -1,0 +1,8 @@
+html, body { min-height: 100dvh; }
+.ricoh-shell, .work-panel, .toolbar, .table-scroll { min-width: 0; }
+.table-scroll { max-width: 100%; overflow-x: auto; }
+@media (max-width: 700px) {
+  .toolbar > * { min-width: 0; }
+  .search-field { width: 100%; }
+  .status-filter { max-width: calc(100% - 148px); }
+}

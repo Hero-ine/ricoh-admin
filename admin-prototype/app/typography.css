@@ -1,0 +1,26 @@
+:root {
+  --font-sans: 'PingFang SC', 'PingFang TC', Inter, system-ui, sans-serif;
+}
+body, button, input, select, textarea {
+  font-family: 'PingFang SC', 'PingFang TC', Inter, system-ui, sans-serif;
+}
+.recipient-data-table th,
+.recipient-data-table .name-line strong {
+  font-size: 16px;
+  line-height: 24px;
+}
+.recipient-data-table small {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.recipient-data-table .key-value,
+.recipient-data-table .muted {
+  font-size: 14px;
+  line-height: 20px;
+}
+.result-count strong {
+  font-size: 16px;
+  line-height: 24px;
+}
+

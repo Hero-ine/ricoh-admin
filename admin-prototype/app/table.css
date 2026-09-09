@@ -1,0 +1,19 @@
+.recipient-table.bui-table th {
+  height: 48px;
+  padding: 12px 16px;
+  font-weight: 500;
+}
+.recipient-table.bui-table td {
+  height: 80px;
+  padding: 16px;
+  vertical-align: middle;
+}
+.recipient-table.bui-table tbody tr:hover {
+  background: var(--color-background-secondary-default);
+}
+.recipient-table.bui-table td[data-focus-visible] {
+  outline: 2px solid var(--ricoh-blue);
+  outline-offset: -2px;
+}
+.recipient-table.bui-table small { margin-top: 4px; }
+.recipient-table.bui-table .role-badge { font-size: 12px; }

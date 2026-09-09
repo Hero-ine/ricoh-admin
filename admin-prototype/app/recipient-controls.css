@@ -1,0 +1,29 @@
+.monitor-stats > section > .mt-auto { display: none; }
+.recipient-toolbar { justify-content: space-between; gap: 24px; }
+.result-count { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+.result-count span { font-size: 12px; color: var(--color-text-tertiary); }
+.result-count strong { font-size: 14px; font-weight: 500; }
+.recipient-actions { display: flex; align-items: center; justify-content: flex-end; gap: 12px; min-width: 0; flex-wrap: wrap; }
+.recipient-actions .search-field { width: 220px; max-width: 220px; flex: 0 1 220px; }
+.recipient-actions .status-filter, .recipient-actions .gender-filter { flex: none; }
+.recipient-actions .add-button { margin-left: 0; }
+.gender-field { display: flex; flex-direction: column; gap: 12px; }
+.gender-options { flex-direction: row; gap: 24px; }
+@media(max-width:1000px) {
+  .recipient-toolbar { flex-wrap: wrap; }
+  .recipient-actions { flex: 1 1 100%; }
+}
+@media(max-width:700px) {
+  .recipient-actions { justify-content: flex-start; gap: 8px; }
+  .recipient-actions .search-field { width: 100%; max-width: none; flex: 1 1 100%; }
+}
+
+.recipient-actions .search-field { width: 165px; max-width: 165px; flex: 0 1 165px; }
+.recipient-actions .search-field > div[role="presentation"] { border-radius: 9999px; }
+.recipient-actions .gender-filter button { min-width: calc(4em + 40px); }
+.recipient-actions .gender-filter .react-aria-SelectValue { min-width: 4em; white-space: nowrap; }
+@media(max-width:700px) {
+  .recipient-actions .search-field { width: 165px; max-width: 100%; flex: 0 1 165px; }
+}
+
+

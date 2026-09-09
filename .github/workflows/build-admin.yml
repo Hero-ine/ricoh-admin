@@ -1,0 +1,50 @@
+name: Build Ricoh Admin
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: admin-prototype
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.20.2'
+          cache: npm
+          cache-dependency-path: admin-prototype/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - name: Package Linux runtime
+        run: |
+          set -eu
+          test -f .next/standalone/server.js
+          cp -R public .next/standalone/public
+          cp -R .next/static .next/standalone/.next/static
+          mkdir -p ../dist
+          tar -czf ../dist/ricoh-admin-linux-x64.tar.gz -C .next/standalone .
+          cd ../dist
+          sha256sum ricoh-admin-linux-x64.tar.gz > ricoh-admin-linux-x64.tar.gz.sha256
+      - name: Verify runtime and authentication
+        run: |
+          set -eu
+          NODE_ENV=production HOSTNAME=127.0.0.1 PORT=3012 node .next/standalone/server.js > /tmp/ricoh-admin-smoke.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          curl --retry 15 --retry-delay 1 --retry-connrefused --fail http://127.0.0.1:3012/api/health
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3012/api/admin/snapshot)" = 401
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ricoh-admin-linux-x64
+          path: dist/ricoh-admin-linux-x64.tar.gz*
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0

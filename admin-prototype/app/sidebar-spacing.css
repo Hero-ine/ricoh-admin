@@ -1,0 +1,4 @@
+.desktop-navigation nav,
+.navigation-drawer nav {
+  gap: 12px;
+}

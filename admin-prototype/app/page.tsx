@@ -104,6 +104,7 @@ export default function Home() {
   if (auth === 'anonymous') return <LoginPage onLogin={login}/>;
 
   return <main className="ricoh-shell"><AdminSidebar selected={tab} onSelect={setTab} count={incidents.length} onLogout={() => void logout()}/><div className="workspace-content">
+    <div className="dashboard-container mx-auto w-full max-w-[1300px]">
     <div className="page-heading"><h1>{tab === 'recipients' ? '收件人管理' : tab === 'incidents' ? '异常记录' : '故障通知'}</h1></div>
     {tab === 'recipients' && <MonitorStats enabled={recipients.filter(r => r.enabled).length} total={recipients.length} health={health}/>}
     <section className="work-panel">
@@ -113,6 +114,7 @@ export default function Home() {
       {tab === 'incidents' && <IncidentPage incidents={incidents}/>}
       {tab === 'fault' && <FaultPage recipients={recipients} fault={fault} onSave={saveFault}/>}
     </section>
+    </div>
     <dialog ref={dialog} className="edit-dialog" onCancel={close}><div className="dialog-heading"><h2>{modal === 'edit' ? selected ? '编辑收件人' : '新增收件人' : modal === 'test' ? '发送测试' : '删除收件人'}</h2><Button variant="ghost" iconOnly leadingIcon={RiCloseLine} onClick={close} aria-label="关闭"/></div>
       {modal === 'edit' && <form onSubmit={e=>{e.preventDefault();void save();}}><div className="form-fields"><Input label="名称" value={name} onChange={setName} maxLength={64} isRequired/><div className="gender-field"><span id="gender-label" className="text-body-medium">性别</span><RadioGroup aria-labelledby="gender-label" value={gender} onChange={setGender} orientation="horizontal" className="gender-options"><Radio value="male">男</Radio><Radio value="female">女</Radio></RadioGroup></div><Input label="SendKey" value={key} onChange={setKey} type="password" maxLength={120} autoComplete="off" placeholder={selected ? '留空保留原值' : 'SCT...'}/><p className="muted">SendKey 仅保存在服务端，编辑时不会回显。</p><Input label="备注" value={note} onChange={setNote} maxLength={240}/><div className="form-toggle"><span>库存推送</span><Switch aria-label="库存推送" isSelected={enabled} onChange={setEnabled}/></div><p role="alert" className="form-error">{error}</p></div><div className="dialog-actions"><Button variant="secondary" onClick={close} type="button">取消</Button><Button type="submit" disabled={busy}>{busy ? '保存中' : '保存收件人'}</Button></div></form>}
       {modal === 'test' && <div className="form-fields"><strong>{current?.name}</strong><p>将向该收件人发送一条真实测试消息。</p><p role="alert" className="form-error">{error}</p><Button disabled={busy} onClick={() => void testRecipient()}>{busy ? '发送中' : '发送测试'}</Button></div>}

@@ -34,15 +34,24 @@ export function IncidentPage({ incidents }: { incidents: Incident[] }) {
 
 export function FaultPage({ recipients, fault, onSave }: { recipients: {id: string; name: string; masked: string; enabled: boolean}[]; fault: string; onSave: (id: string) => Promise<void> }) {
   const [draft, setDraft] = useState(fault);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState('');
   const current = recipients.find(r => r.id === draft);
   const dirty = draft !== String(fault);
-  return <form className="admin-fault" onSubmit={async e => {e.preventDefault(); if(current) await onSave(current.id);}}>
+  return <form className="admin-fault" onSubmit={async e => {
+    e.preventDefault();
+    if (!current || !dirty || saving) return;
+    setSaving(true); setSaveError('');
+    try { await onSave(current.id); }
+    catch (error) { setSaveError(error instanceof Error ? error.message : '保存失败，请重试'); }
+    finally { setSaving(false); }
+  }}>
     <div className="fault-section"><h2>故障与恢复通知</h2><p>库存推送暂停后，故障通知仍发送给此接收人。</p></div>
-    <Select aria-label="固定接收人" selectedKey={draft} onSelectionChange={v => setDraft(String(v))}>{recipients.map(r => <SelectItem key={r.id} id={String(r.id)}>{r.name}</SelectItem>)}</Select>
+    <Select aria-label="固定接收人" isDisabled={saving} selectedKey={draft} onSelectionChange={v => {setDraft(String(v)); setSaveError('');}}>{recipients.map(r => <SelectItem key={r.id} id={String(r.id)}>{r.name}</SelectItem>)}</Select>
     {current && <dl className="fault-detail"><div><dt>SendKey</dt><dd>{current.masked}</dd></div><div><dt>库存推送</dt><dd>{current.enabled ? '开启' : '暂停'}</dd></div><div><dt>通知范围</dt><dd>监控故障、恢复</dd></div></dl>}
-    <div className="fault-actions"><Button variant="secondary" disabled={!dirty} onClick={() => setDraft(String(fault))}>取消</Button><Button type="submit" disabled={!dirty || !current}>保存设置</Button></div>
+    {saveError && <p role="alert" className="form-error">{saveError}</p>}
+    <div className="fault-actions"><Button variant="secondary" disabled={!dirty || saving} onClick={() => {setDraft(String(fault)); setSaveError('');}}>取消</Button><Button type="submit" disabled={!dirty || !current || saving}>{saving ? '保存中' : '保存设置'}</Button></div>
   </form>;
 }
-
 
 

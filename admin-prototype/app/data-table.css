@@ -4,6 +4,8 @@
   overflow: hidden;
 }
 .recipient-data-table { min-width: 760px; }
+.bui-table.recipient-data-table th,
+.bui-table.recipient-data-table td { padding: 16px 24px; }
 .recipient-data-table th { border-top: 0; }
 .recipient-data-table tbody tr:last-child { border-bottom: 0; }
 .recipient-data-table th:last-child { text-align: right; }

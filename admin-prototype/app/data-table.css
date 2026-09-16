@@ -9,6 +9,7 @@
 .recipient-data-table th { border-top: 0; }
 .recipient-data-table tbody tr:last-child { border-bottom: 0; }
 .recipient-data-table th:last-child { text-align: right; }
+.recipient-data-table.daily-inventory-table th:last-child { text-align: left; }
 .recipient-data-table small {
   display: block;
   margin-top: 4px;

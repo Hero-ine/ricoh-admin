@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { LoginPage, IncidentPage, FaultPage } from './secondary-pages';
+import { DailyInventoryPage } from './daily-inventory-page';
 import { AdminSidebar } from './admin-sidebar';
 import { Radio, RadioGroup } from '@/components/base/radio/radio';
 import './recipient-controls.css';
@@ -105,13 +106,14 @@ export default function Home() {
 
   return <main className="ricoh-shell"><AdminSidebar selected={tab} onSelect={setTab} count={incidents.length} onLogout={() => void logout()}/><div className="workspace-content">
     <div className="dashboard-container mx-auto w-full max-w-[1300px]">
-    <div className="page-heading"><h1>{tab === 'recipients' ? '收件人管理' : tab === 'incidents' ? '异常记录' : '故障通知'}</h1></div>
+    <div className="page-heading"><h1>{tab === 'recipients' ? '收件人管理' : tab === 'daily' ? '每日库存更新' : tab === 'incidents' ? '异常记录' : '故障通知'}</h1></div>
     {tab === 'recipients' && <MonitorStats enabled={recipients.filter(r => r.enabled).length} total={recipients.length} health={health}/>}
     <section className="work-panel">
       {tab === 'recipients' && <><div className="toolbar recipient-toolbar"><div className="result-count" aria-live="polite"><span>筛选结果</span><strong>{visible.length} 位收件人</strong></div><div className="recipient-actions"><Input className="search-field" aria-label="搜索收件人" placeholder="搜索收件人" leadingIcon={RiSearchLine} value={query} onChange={setQuery}/><Select aria-label="库存推送筛选" selectedKey={filter} onSelectionChange={v => setFilter(String(v))} className="status-filter"><SelectItem id="all">全部状态</SelectItem><SelectItem id="enabled">推送开启</SelectItem><SelectItem id="paused">推送暂停</SelectItem></Select><Select aria-label="性别筛选" selectedKey={genderFilter} onSelectionChange={v => setGenderFilter(String(v))} className="gender-filter"><SelectItem id="all">全部性别</SelectItem><SelectItem id="male">男</SelectItem><SelectItem id="female">女</SelectItem></Select><Button leadingIcon={RiAddLine} className="add-button" onClick={() => open('edit')}>新增收件人</Button></div></div>
       <div className="table-scroll"><Table aria-label="收件人列表" className="recipient-data-table" size="md"><TableHeader><TableColumn isRowHeader>收件人</TableColumn><TableColumn>SendKey</TableColumn><TableColumn>库存推送</TableColumn><TableColumn>最近发送</TableColumn><TableColumn>操作</TableColumn></TableHeader><TableBody renderEmptyState={() => '暂无收件人'}>{visible.map(r => <TableRow id={r.id} key={r.id} textValue={r.name}><TableCell><div className="name-line"><strong>{r.name}</strong>{r.id === fault && <span className="role-badge">故障接收人</span>}</div><small>{r.note || (r.gender === 'male' ? '男' : r.gender === 'female' ? '女' : '无备注')}</small></TableCell><TableCell><span className="key-value">{r.masked}</span></TableCell><TableCell><Switch aria-label={`${r.name}库存推送`} isSelected={r.enabled} onChange={value => void setRecipientEnabled(r, value)}/></TableCell><TableCell>{r.result ? <><span className={`send-result ${r.result}`}>{r.result === 'accepted' ? <RiCheckLine size={16}/> : <RiErrorWarningLine size={16}/>} {labels[r.result]}</span><small title={r.time}>{formatTime(r.time)}</small></> : <span className="muted">尚未发送</span>}</TableCell><TableCell><div className="row-actions"><Button variant="secondary" iconOnly leadingIcon={RiSendPlaneLine} title="发送测试" aria-label={`向${r.name}发送测试`} onClick={() => open('test',r)}/><Button variant="secondary" iconOnly leadingIcon={RiPencilLine} title="编辑" aria-label={`编辑${r.name}`} onClick={() => open('edit',r)}/><Button variant="secondary" iconOnly leadingIcon={RiDeleteBinLine} title="删除" aria-label={`删除${r.name}`} className="delete-action" onClick={() => open('delete',r)}/></div></TableCell></TableRow>)}</TableBody></Table></div>
       <footer className="table-footer"><span/><span>服务端配置</span></footer></>}
       {tab === 'incidents' && <IncidentPage incidents={incidents}/>}
+      {tab === 'daily' && <DailyInventoryPage/>}
       {tab === 'fault' && <FaultPage recipients={recipients} fault={fault} onSave={saveFault}/>}
     </section>
     </div>

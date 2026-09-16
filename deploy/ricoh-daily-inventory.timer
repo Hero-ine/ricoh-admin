@@ -1,0 +1,12 @@
+[Unit]
+Description=Persist inventory changes and finalize at 22:05 Shanghai
+
+[Timer]
+OnBootSec=30s
+OnUnitActiveSec=30s
+OnCalendar=*-*-* 22:05:00 Asia/Shanghai
+Persistent=true
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

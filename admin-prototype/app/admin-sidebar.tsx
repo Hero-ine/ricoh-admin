@@ -1,7 +1,7 @@
 'use client';
 import { useRef } from 'react';
 import { SidebarProfile } from './sidebar-profile';
-import { RiUserLine, RiErrorWarningLine, RiNotification3Line, RiMenuLine } from '@remixicon/react';
+import { RiUserLine, RiErrorWarningLine, RiNotification3Line, RiMenuLine, RiCalendarLine } from '@remixicon/react';
 import { DashboardSidebar } from '@/components/application/dashboard/dashboard-sidebar';
 import { Button } from '@/components/base/buttons/button';
 import './sidebar.css';
@@ -11,6 +11,7 @@ export function AdminSidebar({ selected, onSelect, count, onLogout }: { selected
   const drawer = useRef<HTMLDialogElement>(null);
   const items = [
     { key: 'recipients', label: '收件人', icon: RiUserLine },
+    { key: 'daily', label: '每日库存更新', icon: RiCalendarLine },
     { key: 'incidents', label: '异常记录', icon: RiErrorWarningLine, badge: count || undefined },
     { key: 'fault', label: '故障通知', icon: RiNotification3Line },
   ].map(item => ({ ...item, onClick: () => { onSelect(item.key); drawer.current?.close(); } }));
@@ -21,5 +22,4 @@ export function AdminSidebar({ selected, onSelect, count, onLogout }: { selected
     <dialog ref={drawer} className="navigation-drawer" aria-label="管理导航"><DashboardSidebar {...props} mobile onClose={() => drawer.current?.close()}/></dialog>
   </>;
 }
-
 

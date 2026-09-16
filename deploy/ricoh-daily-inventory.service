@@ -1,0 +1,12 @@
+[Unit]
+Description=Collect daily Ricoh inventory totals
+After=ricoh-gr4-monitor.service
+
+[Service]
+Type=oneshot
+User=ricoh
+Group=ricoh
+ExecStart=/usr/bin/node /opt/ricoh-gr4-monitor/scripts/daily-inventory.mjs /opt/ricoh-gr4-monitor
+NoNewPrivileges=true
+MemoryMax=96M
+Nice=10

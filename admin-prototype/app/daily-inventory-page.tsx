@@ -28,7 +28,7 @@ export function DailyInventoryPage() {
     <div className="toolbar flex-wrap">
       <span className="muted">00:00–22:00 · 北京时间</span>
       <div className="ml-auto flex shrink-0 items-center gap-3">
-        <PillTabList aria-label="商品类型" className="rounded-2lg bg-background-secondary-default p-1">
+        <PillTabList aria-label="商品类型" className="rounded-2lg bg-background-secondary-default p-1 [&>span]:bg-white">
           <PillTab variant="gray" isSelected={condition==='refurb'} onSelect={()=>setCondition('refurb')} className="min-w-16 justify-center">官翻</PillTab>
           <PillTab variant="gray" isSelected={condition==='new'} onSelect={()=>setCondition('new')} className="min-w-16 justify-center">全新</PillTab>
         </PillTabList>

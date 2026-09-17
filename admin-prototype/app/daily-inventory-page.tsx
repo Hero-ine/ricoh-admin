@@ -26,12 +26,14 @@ export function DailyInventoryPage() {
   },[refresh]);
   return <>
     <div className="toolbar flex-wrap">
-      <PillTabList aria-label="商品类型" className="rounded-full bg-background-secondary-default p-1">
-        <PillTab isSelected={condition==='refurb'} onSelect={()=>setCondition('refurb')} className="min-w-16 justify-center">官翻</PillTab>
-        <PillTab isSelected={condition==='new'} onSelect={()=>setCondition('new')} className="min-w-16 justify-center">全新</PillTab>
-      </PillTabList>
       <span className="muted">00:00–22:00 · 北京时间</span>
-      <Button variant="secondary" iconOnly leadingIcon={RiRefreshLine} aria-label="刷新每日库存" title="刷新" disabled={loading} onClick={()=>setRefresh(v=>v+1)}/>
+      <div className="ml-auto flex shrink-0 items-center gap-3">
+        <PillTabList aria-label="商品类型" className="rounded-2lg bg-background-secondary-default p-1">
+          <PillTab variant="gray" isSelected={condition==='refurb'} onSelect={()=>setCondition('refurb')} className="min-w-16 justify-center">官翻</PillTab>
+          <PillTab variant="gray" isSelected={condition==='new'} onSelect={()=>setCondition('new')} className="min-w-16 justify-center">全新</PillTab>
+        </PillTabList>
+        <Button variant="secondary" iconOnly leadingIcon={RiRefreshLine} aria-label="刷新每日库存" title="刷新" disabled={loading} onClick={()=>setRefresh(v=>v+1)}/>
+      </div>
     </div>
     {error ? <p role="alert" className="form-error">{error}</p> : <div className="table-scroll">
       <Table key={condition} aria-label={`每日库存更新 · ${condition==='refurb'?'官翻':'全新'}`} className="recipient-data-table daily-inventory-table">

@@ -5,7 +5,7 @@
   a:is(:hover, :focus-visible) .moving-calendar path:last-child { stroke-dasharray: 9; animation: sidebar-check .5s ease-out backwards; }
   a:is(:hover, :focus-visible) .moving-alert { transform-origin: center; animation: sidebar-alert .5s ease-in-out; }
   a:is(:hover, :focus-visible) .moving-bell { transform-origin: top center; animation: sidebar-bell .9s ease-in-out; }
-  a:is(:hover, :focus-visible) .moving-bell path:last-child { animation: sidebar-clapper 1.1s ease-in-out; }
+  a:is(:hover, :focus-visible) .moving-bell path:first-child { animation: sidebar-clapper 1.1s ease-in-out; }
 }
 @keyframes sidebar-user-body { 0%,100% { transform: translateY(0); } 33% { transform: translateY(2px); } 66% { transform: translateY(-2px); } }
 @keyframes sidebar-user-head { 0%,100% { transform: translateY(0); } 33% { transform: translateY(4px); } 66% { transform: translateY(-2px); } }

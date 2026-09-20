@@ -1,0 +1,15 @@
+.moving-sidebar-icon { overflow: visible; }
+@media (prefers-reduced-motion: no-preference) {
+  a:is(:hover, :focus-visible) .moving-user path { animation: sidebar-user-body .6s ease-in-out; }
+  a:is(:hover, :focus-visible) .moving-user circle { animation: sidebar-user-head .6s ease-in-out; }
+  a:is(:hover, :focus-visible) .moving-calendar path:last-child { stroke-dasharray: 9; animation: sidebar-check .5s ease-out backwards; }
+  a:is(:hover, :focus-visible) .moving-alert { transform-origin: center; animation: sidebar-alert .5s ease-in-out; }
+  a:is(:hover, :focus-visible) .moving-bell { transform-origin: top center; animation: sidebar-bell .9s ease-in-out; }
+  a:is(:hover, :focus-visible) .moving-bell path:last-child { animation: sidebar-clapper 1.1s ease-in-out; }
+}
+@keyframes sidebar-user-body { 0%,100% { transform: translateY(0); } 33% { transform: translateY(2px); } 66% { transform: translateY(-2px); } }
+@keyframes sidebar-user-head { 0%,100% { transform: translateY(0); } 33% { transform: translateY(4px); } 66% { transform: translateY(-2px); } }
+@keyframes sidebar-check { 0%,33% { stroke-dashoffset: 9; opacity: 0; } 100% { stroke-dashoffset: 0; opacity: 1; } }
+@keyframes sidebar-alert { 0%,100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.1) rotate(-3deg); } 40% { transform: scale(1.1) rotate(3deg); } 60% { transform: scale(1.1) rotate(-2deg); } }
+@keyframes sidebar-bell { 0%,100% { transform: rotate(0deg); } 16.67% { transform: rotate(20deg); } 33.33% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } 66.67% { transform: rotate(-5deg); } 83.33% { transform: rotate(3deg); } }
+@keyframes sidebar-clapper { 0%,100% { transform: translateX(0); } 14.29% { transform: translateX(-6px); } 28.57% { transform: translateX(5px); } 42.86% { transform: translateX(-5px); } 57.14% { transform: translateX(4px); } 71.43% { transform: translateX(-3px); } 85.71% { transform: translateX(2px); } }
